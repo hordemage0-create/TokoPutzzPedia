@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>⚡ Toko PutzzPedia — VPS & Panel Pterodactyl</title>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Pirata+One&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===================== RESET ===================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --neon-cyan: #00fff7;
+  --neon-pink: #ff00e5;
+  --neon-purple: #b026ff;
+  --neon-blue: #0099ff;
+  --neon-green: #39ff14;
+  --neon-yellow: #ffe600;
+  --neon-red: #ff073a;
+  --bg-0: #000000;
+  --bg-card: rgba(10, 10, 25, 0.75);
+  --border-neon: rgba(0, 255, 247, 0.4);
+  --text: #e8f4ff;
+  --text-dim: #7a8ba0;
+  --glow-cyan: 0 0 8px var(--neon-cyan), 0 0 20px rgba(0,255,247,0.5);
+  --glow-pink: 0 0 8px var(--neon-pink), 0 0 20px rgba(255,0,229,0.5);
+}
+
+body {
+  font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+  background: var(--bg-0);
+  color: var(--text);
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ===================== HEADER ===================== */
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 24px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--neon-cyan);
+  box-shadow: 0 0 20px rgba(0, 255, 247, 0.3);
+  position: sticky; top: 0; z-index: 100;
+}
+.header-left { display: flex; align-items: center; gap: 14px; }
+.menu-btn {
+  width: 42px; height: 42px;
+  background: transparent;
+  border: 2px solid var(--neon-cyan);
+  border-radius: 10px;
+  box-shadow: var(--glow-cyan);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; font-weight: 900;
+  color: var(--neon-cyan);
+  transition: all 0.3s;
+}
+.menu-btn:hover {
+  background: var(--neon-cyan); color: #000;
+  box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+}
+.logo-badge {
+  display: flex; align-items: center;
+  background: transparent;
+  border: 2px solid var(--neon-pink);
+  border-radius: 10px;
+  padding: 6px 16px;
+  box-shadow: var(--glow-pink);
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-weight: 700; font-size: 1.4rem;
+  color: var(--neon-pink);
+  text-shadow: 0 0 8px var(--neon-pink);
+  letter-spacing: 2px;
+}
+.logo-badge span { margin-right: 6px; }
+
+/* ===================== HEADER SOSMED ===================== */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-sosmed {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid;
+}
+.header-sosmed.telegram {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: 0 0 10px rgba(0, 153, 255, 0.5);
+}
+.header-sosmed.telegram:hover {
+  background: var(--neon-blue);
+  color: #000;
+  box-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
+  transform: translateY(-2px);
+}
+.header-sosmed.whatsapp {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+}
+.header-sosmed.whatsapp:hover {
+  background: var(--neon-green);
+  color: #000;
+  box-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green);
+  transform: translateY(-2px);
+}
+.header-sosmed svg {
+  width: 20px; height: 20px;
+  fill: currentColor;
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  overflow: hidden;
+  border-bottom: 2px solid var(--neon-cyan);
+}
+
+.hero-bg-image {
+  position: absolute; inset: 0;
+  background-image: url('anime-bw.jpg');
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+  background-color: #0a0a1a;
+  filter: brightness(0.4) contrast(1.8) saturate(0) grayscale(1);
+  opacity: 0.9;
+  z-index: 0;
+  animation: slowZoom 20s ease-in-out infinite alternate;
+}
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+.hero-bg-image::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(0,255,247,0.08) 0%, transparent 40%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.hero-overlay {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.75) 65%, #000 100%),
+    linear-gradient(135deg, rgba(0, 255, 247, 0.12) 0%, transparent 50%, rgba(255, 0, 229, 0.12) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 255, 247, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 247, 0.07) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 75%);
+  z-index: 2;
+  pointer-events: none;
+}
+.hero::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0, 255, 247, 0.04) 2px, rgba(0, 255, 247, 0.04) 4px
+  );
+  z-index: 3;
+  pointer-events: none;
+  animation: scanlines 8s linear infinite;
+}
+@keyframes scanlines {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100px; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+@media (min-width: 1000px) {
+  .hero-content {
+    margin-left: 5%;
+    margin-right: auto;
+    text-align: left;
+    max-width: 550px;
+  }
+  .hero-btns { justify-content: flex-start; }
+  .hero-desc { margin-left: 0; margin-right: 0; }
+}
+
+.hero-title {
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 40px var(--neon-cyan),
+    0 0 80px var(--neon-blue);
+  line-height: 1.1;
+  margin-bottom: 20px;
+  animation: neonPulse 2s infinite alternate;
+}
+@keyframes neonPulse {
+  0% { text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 80px var(--neon-blue); }
+  100% { text-shadow: 0 0 5px #fff, 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan), 0 0 60px var(--neon-cyan), 0 0 100px var(--neon-blue); }
+}
+.hero-subtitle {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--neon-pink);
+  padding: 10px 30px;
+  border: 2px solid var(--neon-pink);
+  border-radius: 99px;
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-weight: 700; font-size: 1.1rem;
+  letter-spacing: 3px;
+  margin-bottom: 24px;
+  box-shadow: var(--glow-pink), inset 0 0 15px rgba(255, 0, 229, 0.2);
+  text-shadow: 0 0 8px var(--neon-pink);
+  animation: flickerText 3s infinite;
+}
+@keyframes flickerText {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.4; }
+  94% { opacity: 1; }
+  96% { opacity: 0.7; }
+  97% { opacity: 1; }
+}
+.hero-desc {
+  color: var(--text-dim);
+  font-size: 1rem;
+  max-width: 550px;
+  margin: 0 auto 30px;
+  line-height: 1.7;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(0,0,0,0.9);
+}
+.hero-btns {
+  display: flex; gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-hero {
+  padding: 14px 32px;
+  background: rgba(0,0,0,0.5);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 10px;
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  font-weight: 700; font-size: 1.1rem;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+.btn-hero:hover {
+  background: var(--neon-cyan); color: #000;
+  text-shadow: none;
+  box-shadow: 0 0 20px var(--neon-cyan), 0 0 50px var(--neon-cyan);
+  transform: translateY(-3px);
+}
+.btn-hero.pink {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+  text-shadow: 0 0 8px var(--neon-pink);
+  box-shadow: var(--glow-pink);
+}
+.btn-hero.pink:hover {
+  background: var(--neon-pink); color: #000;
+  text-shadow: none;
+  box-shadow: 0 0 20px var(--neon-pink), 0 0 50px var(--neon-pink);
+}
+
+/* ===================== KARAKTER VIDEO 3D ===================== */
+.hero-character {
+  position: absolute;
+  right: 3%;
+  bottom: 0;
+  width: 42%;
+  max-width: 500px;
+  height: 92%;
+  z-index: 8;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  perspective: 1200px;
+}
+.character-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: characterFloat 4s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+video.character-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 16px;
+  filter:
+    drop-shadow(0 0 15px rgba(0, 255, 247, 0.8))
+    drop-shadow(0 0 35px rgba(255, 0, 229, 0.5))
+    drop-shadow(0 0 60px rgba(0, 153, 255, 0.3))
+    contrast(1.1) saturate(1.2);
+  animation: characterGlow 3s ease-in-out infinite alternate;
+  transform: rotateY(-8deg) rotateX(2deg);
+  transition: transform 0.5s ease, filter 0.5s ease;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse at center, black 55%, transparent 100%);
+}
+@keyframes characterFloat {
+  0%, 100% { transform: translateY(0) rotateY(-8deg); }
+  50%      { transform: translateY(-20px) rotateY(-8deg); }
+}
+@keyframes characterGlow {
+  0% {
+    filter:
+      drop-shadow(0 0 15px rgba(0, 255, 247, 0.8))
+      drop-shadow(0 0 35px rgba(255, 0, 229, 0.5))
+      drop-shadow(0 0 60px rgba(0, 153, 255, 0.3))
+      contrast(1.1) saturate(1.2);
+  }
+  100% {
+    filter:
+      drop-shadow(0 0 25px rgba(0, 255, 247, 1))
+      drop-shadow(0 0 55px rgba(255, 0, 229, 0.8))
+      drop-shadow(0 0 90px rgba(0, 153, 255, 0.6))
+      contrast(1.2) saturate(1.3);
+  }
+}
+.character-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%; height: 70%;
+  background: radial-gradient(circle, rgba(0, 255, 247, 0.3) 0%, rgba(255, 0, 229, 0.15) 40%, transparent 70%);
+  border-radius: 50%;
+  animation: glowPulse 3s ease-in-out infinite alternate;
+  z-index: -1;
+  filter: blur(20px);
+}
+@keyframes glowPulse {
+  0%   { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
+  100% { opacity: 1;   transform: translate(-50%, -50%) scale(1.15); }
+}
+.character-particles {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+.character-particles span {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: var(--neon-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--neon-cyan), 0 0 25px var(--neon-cyan);
+  animation: particleFloat 4s ease-in-out infinite;
+  opacity: 0;
+}
+.character-particles span:nth-child(1)  { left: 10%; bottom: 20%; animation-delay: 0s;   background: var(--neon-cyan); }
+.character-particles span:nth-child(2)  { left: 25%; bottom: 40%; animation-delay: 0.5s; background: var(--neon-pink); box-shadow: 0 0 12px var(--neon-pink); }
+.character-particles span:nth-child(3)  { left: 40%; bottom: 15%; animation-delay: 1s;   background: var(--neon-purple); box-shadow: 0 0 12px var(--neon-purple); }
+.character-particles span:nth-child(4)  { left: 60%; bottom: 35%; animation-delay: 1.5s; background: var(--neon-cyan); }
+.character-particles span:nth-child(5)  { left: 75%; bottom: 25%; animation-delay: 2s;   background: var(--neon-blue); box-shadow: 0 0 12px var(--neon-blue); }
+.character-particles span:nth-child(6)  { left: 85%; bottom: 50%; animation-delay: 2.5s; background: var(--neon-pink); box-shadow: 0 0 12px var(--neon-pink); }
+.character-particles span:nth-child(7)  { left: 15%; bottom: 60%; animation-delay: 0.8s; background: var(--neon-purple); box-shadow: 0 0 12px var(--neon-purple); }
+.character-particles span:nth-child(8)  { left: 50%; bottom: 55%; animation-delay: 1.8s; background: var(--neon-cyan); }
+.character-particles span:nth-child(9)  { left: 70%; bottom: 65%; animation-delay: 2.8s; background: var(--neon-pink); box-shadow: 0 0 12px var(--neon-pink); }
+.character-particles span:nth-child(10) { left: 30%; bottom: 75%; animation-delay: 3.2s; background: var(--neon-blue); box-shadow: 0 0 12px var(--neon-blue); }
+@keyframes particleFloat {
+  0%   { transform: translateY(0) scale(1);   opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(-300px) scale(0.3); opacity: 0; }
+}
+.character-shadow {
+  position: absolute;
+  bottom: -10px; left: 50%;
+  transform: translateX(-50%);
+  width: 50%; height: 20px;
+  background: radial-gradient(ellipse, rgba(0, 255, 247, 0.4) 0%, transparent 70%);
+  filter: blur(10px);
+  animation: shadowPulse 4s ease-in-out infinite;
+}
+@keyframes shadowPulse {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 0.8; transform: translateX(-50%) scale(1.1); }
+}
+.hero:hover video.character-img {
+  transform: rotateY(0deg) rotateX(0deg) scale(1.03);
+}
+@media (max-width: 1000px) {
+  .hero-character { right: 0; width: 50%; opacity: 0.75; }
+}
+@media (max-width: 700px) {
+  .hero-character { width: 70%; right: -8%; opacity: 0.5; height: 80%; }
+  .character-glow { width: 90%; height: 90%; }
+}
+@media (max-width: 480px) {
+  .hero-character { width: 85%; right: -15%; opacity: 0.4; }
+}
+
+/* ===================== SECTION SOSMED ===================== */
+.sosmed-section {
+  padding: 40px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.sosmed-title {
+  text-align: center;
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 28px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: neonPulse 2s infinite alternate;
+}
+.sosmed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.sosmed-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 2px solid;
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+}
+.sosmed-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.6s;
+}
+.sosmed-card:hover::before { left: 100%; }
+.sosmed-card.telegram {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 25px rgba(0, 153, 255, 0.4), inset 0 0 20px rgba(0, 153, 255, 0.05);
+}
+.sosmed-card.telegram:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 35px var(--neon-blue), 0 0 70px rgba(0, 153, 255, 0.5), inset 0 0 30px rgba(0, 153, 255, 0.1);
+}
+.sosmed-card.whatsapp {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 25px rgba(57, 255, 20, 0.4), inset 0 0 20px rgba(57, 255, 20, 0.05);
+}
+.sosmed-card.whatsapp:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 35px var(--neon-green), 0 0 70px rgba(57, 255, 20, 0.5), inset 0 0 30px rgba(57, 255, 20, 0.1);
+}
+.sosmed-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+.sosmed-card.telegram .sosmed-icon {
+  background: rgba(0, 153, 255, 0.15);
+  border: 2px solid var(--neon-blue);
+  box-shadow: inset 0 0 15px rgba(0, 153, 255, 0.3), 0 0 20px rgba(0, 153, 255, 0.4);
+}
+.sosmed-card.whatsapp .sosmed-icon {
+  background: rgba(57, 255, 20, 0.15);
+  border: 2px solid var(--neon-green);
+  box-shadow: inset 0 0 15px rgba(57, 255, 20, 0.3), 0 0 20px rgba(57, 255, 20, 0.4);
+}
+.sosmed-icon svg {
+  width: 32px; height: 32px;
+  fill: currentColor;
+}
+.sosmed-card.telegram .sosmed-icon { color: var(--neon-blue); }
+.sosmed-card.whatsapp .sosmed-icon { color: var(--neon-green); }
+.sosmed-card:hover .sosmed-icon { transform: scale(1.1) rotate(-5deg); }
+.sosmed-info { flex: 1; }
+.sosmed-info h4 {
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+}
+.sosmed-card.telegram .sosmed-info h4 {
+  color: var(--neon-blue);
+  text-shadow: 0 0 8px var(--neon-blue);
+}
+.sosmed-card.whatsapp .sosmed-info h4 {
+  color: var(--neon-green);
+  text-shadow: 0 0 8px var(--neon-green);
+}
+.sosmed-info p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.sosmed-info .username {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.sosmed-card.telegram .sosmed-info .username {
+  color: var(--neon-blue);
+  border: 1px solid var(--neon-blue);
+}
+.sosmed-card.whatsapp .sosmed-info .username {
+  color: var(--neon-green);
+  border: 1px solid var(--neon-green);
+}
+.sosmed-arrow {
+  font-size: 1.5rem;
+  font-weight: 900;
+  opacity: 0.5;
+  transition: all 0.3s;
+}
+.sosmed-card:hover .sosmed-arrow {
+  opacity: 1;
+  transform: translateX(6px);
+}
+.sosmed-card.telegram .sosmed-arrow { color: var(--neon-blue); }
+.sosmed-card.whatsapp .sosmed-arrow { color: var(--neon-green); }
+
+/* ===================== IKLAN SLIDESHOW ===================== */
+.iklan-section { padding: 30px 24px; max-width: 1100px; margin: 0 auto; }
+.iklan-slider {
+  position: relative; width: 100%;
+  aspect-ratio: 16 / 7;
+  border: 2px solid var(--neon-cyan);
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 0 25px var(--neon-cyan), 0 0 50px rgba(0, 255, 247, 0.3), inset 0 0 30px rgba(0, 255, 247, 0.1);
+  animation: iklanPulse 4s ease-in-out infinite;
+}
+@keyframes iklanPulse {
+  0%, 100% { box-shadow: 0 0 25px var(--neon-cyan), 0 0 50px rgba(0, 255, 247, 0.3), inset 0 0 30px rgba(0, 255, 247, 0.1); }
+  50% { box-shadow: 0 0 40px var(--neon-cyan), 0 0 80px rgba(0, 255, 247, 0.5), inset 0 0 40px rgba(0, 255, 247, 0.15); }
+}
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+.slide.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+.slide img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.9) contrast(1.1) saturate(1.1); }
+.slide::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(135deg, rgba(0, 255, 247, 0.1) 0%, transparent 50%, rgba(255, 0, 229, 0.1) 100%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 247, 0.04) 2px, rgba(0, 255, 247, 0.04) 4px);
+  pointer-events: none;
+}
+.slider-label {
+  position: absolute; top: 16px; left: 16px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid var(--neon-pink);
+  border-radius: 99px;
+  padding: 5px 16px;
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  font-weight: 900; font-size: 1rem;
+  color: var(--neon-pink);
+  text-shadow: 0 0 10px var(--neon-pink);
+  box-shadow: 0 0 15px rgba(255, 0, 229, 0.6);
+  letter-spacing: 2px; z-index: 5;
+  animation: flickerText 3s infinite;
+}
+.slider-dots {
+  position: absolute; bottom: 16px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 10px; z-index: 5;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 6px 14px; border-radius: 99px;
+  border: 1px solid var(--neon-cyan);
+  box-shadow: 0 0 15px rgba(0, 255, 247, 0.5);
+}
+.dot {
+  width: 12px; height: 12px;
+  border-radius: 50%; background: transparent;
+  border: 2px solid var(--neon-cyan);
+  cursor: pointer; transition: all 0.3s; padding: 0;
+}
+.dot.active {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 12px var(--neon-cyan), 0 0 25px var(--neon-cyan);
+  transform: scale(1.3);
+}
+.slider-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 46px; height: 46px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0, 255, 247, 0.6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; font-weight: 900;
+  color: var(--neon-cyan); cursor: pointer; z-index: 5;
+  transition: all 0.3s;
+  font-family: 'UnifrakturCook', serif;
+}
+.slider-arrow:hover {
+  background: var(--neon-cyan); color: #000;
+  box-shadow: 0 0 25px var(--neon-cyan), 0 0 50px var(--neon-cyan);
+  transform: translateY(-50%) scale(1.1);
+}
+.slider-arrow.left { left: 16px; }
+.slider-arrow.right { right: 16px; }
+
+/* ===================== PROMO ===================== */
+.promo-section { padding: 30px 24px; }
+.promo-banner {
+  max-width: 1100px; margin: 0 auto;
+  background: rgba(0, 20, 10, 0.6);
+  border: 2px solid var(--neon-green);
+  border-radius: 14px;
+  box-shadow: 0 0 20px var(--neon-green), inset 0 0 25px rgba(57, 255, 20, 0.1);
+  padding: 18px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.promo-banner p {
+  font-size: 0.95rem; font-weight: 700;
+  color: var(--neon-green);
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.6);
+}
+.btn-deposit {
+  padding: 10px 22px; background: transparent;
+  border: 2px solid var(--neon-yellow);
+  border-radius: 10px;
+  font-weight: 800; font-size: 1rem;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 8px var(--neon-yellow);
+  box-shadow: 0 0 15px rgba(255, 230, 0, 0.5);
+  white-space: nowrap; transition: all 0.3s;
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  letter-spacing: 1px;
+}
+.btn-deposit:hover {
+  background: var(--neon-yellow); color: #000;
+  text-shadow: none;
+  box-shadow: 0 0 20px var(--neon-yellow), 0 0 40px var(--neon-yellow);
+}
+
+/* ===================== SEARCH ===================== */
+.search-section { padding: 20px 24px 10px; }
+.search-bar {
+  max-width: 1100px; margin: 0 auto;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 12px;
+  box-shadow: var(--glow-cyan), inset 0 0 15px rgba(0, 255, 247, 0.05);
+  display: flex; align-items: center;
+  padding: 4px 6px 4px 16px; gap: 10px;
+}
+.search-bar .icon { font-size: 1.1rem; color: var(--neon-cyan); filter: drop-shadow(0 0 5px var(--neon-cyan)); }
+.search-bar input {
+  flex: 1; border: none; outline: none;
+  font-size: 0.95rem; padding: 12px 0;
+  background: transparent;
+  font-family: inherit; color: var(--text); font-weight: 600;
+}
+.search-bar input::placeholder { color: var(--text-dim); }
+.search-bar button {
+  padding: 10px 22px; background: transparent;
+  color: var(--neon-cyan);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 8px;
+  font-weight: 800; font-size: 1rem;
+  box-shadow: 0 0 10px rgba(0, 255, 247, 0.5);
+  transition: all 0.3s;
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  letter-spacing: 1px;
+}
+.search-bar button:hover {
+  background: var(--neon-cyan); color: #000;
+  box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+}
+
+/* ===================== BENEFIT ===================== */
+.benefit-banner {
+  max-width: 1100px; margin: 0 auto 30px;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 2px solid var(--neon-purple);
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(176, 38, 255, 0.5), 0 0 60px rgba(176, 38, 255, 0.2), inset 0 0 30px rgba(176, 38, 255, 0.1);
+  padding: 26px; position: relative; overflow: hidden;
+  animation: benefitPulse 4s ease-in-out infinite;
+}
+@keyframes benefitPulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(176,38,255,0.5), 0 0 60px rgba(176,38,255,0.2), inset 0 0 30px rgba(176,38,255,0.1); }
+  50% { box-shadow: 0 0 45px rgba(176,38,255,0.7), 0 0 90px rgba(176,38,255,0.4), inset 0 0 40px rgba(176,38,255,0.2); }
+}
+.benefit-banner::before {
+  content: ""; position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(176,38,255,0.15), transparent);
+  animation: shine 5s infinite;
+  pointer-events: none;
+}
+@keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
+.benefit-header {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px dashed var(--neon-purple);
+  position: relative; z-index: 1;
+}
+.benefit-header .icon-neon {
+  color: var(--neon-purple);
+  text-shadow: 0 0 15px var(--neon-purple);
+  font-size: 1.5rem;
+  animation: flickerText 2s infinite;
+}
+.benefit-header h3 {
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-size: 2rem; font-weight: 900;
+  color: var(--neon-purple);
+  text-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 40px rgba(176,38,255,0.6);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.benefit-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px 24px;
+  position: relative; z-index: 1;
+}
+.benefit-list li {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  font-size: 0.9rem; font-weight: 600;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.5);
+  border-left: 3px solid var(--neon-purple);
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+.benefit-list li:hover {
+  background: rgba(176, 38, 255, 0.15);
+  box-shadow: 0 0 15px rgba(176,38,255,0.5), inset 0 0 10px rgba(176,38,255,0.1);
+  transform: translateX(6px);
+}
+.benefit-list li .arrow {
+  color: var(--neon-purple); font-weight: 900;
+  font-size: 1.1rem;
+  text-shadow: 0 0 8px var(--neon-purple);
+  flex-shrink: 0;
+}
+.benefit-list li small {
+  color: var(--text-dim); font-size: 0.75rem;
+  font-style: italic; margin-left: 4px;
+}
+.benefit-footer {
+  text-align: center; margin-top: 20px;
+  padding-top: 16px;
+  border-top: 2px dashed var(--neon-purple);
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-size: 1.8rem; font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--neon-purple);
+  text-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple);
+  animation: flickerText 3s infinite;
+  position: relative; z-index: 1;
+}
+
+/* ===================== PRODUK ===================== */
+.produk-section { padding: 30px 24px 60px; max-width: 1100px; margin: 0 auto; }
+.section-title {
+  text-align: center;
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-size: 2.5rem; font-weight: 900;
+  margin-bottom: 30px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan), 0 0 30px var(--neon-cyan), 0 0 60px rgba(0, 255, 247, 0.6);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: neonPulse 2s infinite alternate;
+}
+.section-divider {
+  max-width: 1100px; margin: 30px auto;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
+  box-shadow: 0 0 20px var(--neon-pink);
+  position: relative;
+}
+.section-divider::before {
+  content: "◆"; position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-0);
+  padding: 0 20px;
+  color: var(--neon-pink);
+  text-shadow: 0 0 15px var(--neon-pink);
+  font-size: 1.2rem;
+}
+.produk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+}
+.produk-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--border-neon);
+  border-radius: 14px;
+  box-shadow: 0 0 15px rgba(0, 255, 247, 0.2), inset 0 0 20px rgba(0, 255, 247, 0.03);
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.produk-card::before {
+  content: ""; position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 247, 0.15), transparent);
+  transition: left 0.6s;
+}
+.produk-card:hover::before { left: 100%; }
+.produk-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 25px var(--neon-pink), 0 0 50px rgba(255, 0, 229, 0.4), inset 0 0 25px rgba(255, 0, 229, 0.1);
+}
+.produk-card .icon-box {
+  width: 64px; height: 64px;
+  margin: 0 auto 14px;
+  border: 2px solid var(--neon-cyan);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  background: rgba(0, 20, 30, 0.6);
+  box-shadow: inset 0 0 15px rgba(0, 255, 247, 0.2), 0 0 15px rgba(0, 255, 247, 0.3);
+  transition: all 0.3s;
+}
+.produk-card:hover .icon-box {
+  border-color: var(--neon-pink);
+  box-shadow: inset 0 0 20px rgba(255, 0, 229, 0.3), 0 0 25px var(--neon-pink);
+}
+.produk-card h4 {
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  font-size: 1.2rem; font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan);
+  letter-spacing: 1px;
+}
+.produk-card p { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 14px; }
+.produk-card .harga {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--neon-yellow);
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  font-size: 1.2rem; font-weight: 900;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 8px var(--neon-yellow);
+  box-shadow: 0 0 10px rgba(255, 230, 0, 0.5);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.produk-card .btn-order {
+  display: block; width: 100%;
+  padding: 11px; background: transparent;
+  border: 2px solid var(--neon-green);
+  border-radius: 8px;
+  color: var(--neon-green);
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  font-weight: 700; font-size: 1.05rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px var(--neon-green);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+  transition: all 0.3s;
+  margin-top: 4px;
+}
+.produk-card .btn-order:hover {
+  background: var(--neon-green); color: #000;
+  text-shadow: none;
+  box-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green);
+}
+.badge-nego, .badge-hot {
+  display: inline-block;
+  border-radius: 99px;
+  padding: 3px 12px;
+  font-size: 0.8rem; font-weight: 900;
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  animation: badgePulse 2s infinite;
+}
+.badge-nego {
+  background: rgba(176, 38, 255, 0.2);
+  border: 2px solid var(--neon-purple);
+  color: var(--neon-purple);
+  text-shadow: 0 0 8px var(--neon-purple);
+  box-shadow: 0 0 10px rgba(176, 38, 255, 0.5);
+}
+.badge-hot {
+  background: rgba(255, 7, 58, 0.2);
+  border: 2px solid var(--neon-red);
+  color: var(--neon-red);
+  text-shadow: 0 0 8px var(--neon-red);
+  box-shadow: 0 0 10px rgba(255, 7, 58, 0.5);
+}
+@keyframes badgePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+/* ===================== ORDER & SUCCESS ===================== */
+.order-page, .success-page {
+  display: none;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 30px 20px 60px;
+}
+.order-page.active, .success-page.active {
+  display: block;
+  animation: fadeIn 0.5s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page-title {
+  text-align: center;
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-size: 2.2rem; font-weight: 900;
+  margin-bottom: 24px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.produk-detail {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0, 255, 247, 0.5), inset 0 0 20px rgba(0, 255, 247, 0.05);
+  padding: 26px;
+  text-align: center;
+  margin-bottom: 22px;
+}
+.produk-detail .icon-big {
+  width: 80px; height: 80px;
+  margin: 0 auto 14px;
+  border: 2px solid var(--neon-cyan);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem;
+  background: rgba(0, 20, 30, 0.6);
+  box-shadow: inset 0 0 20px rgba(0, 255, 247, 0.2), 0 0 20px rgba(0, 255, 247, 0.4);
+}
+.produk-detail h2 {
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-size: 1.8rem; font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 12px var(--neon-cyan);
+  letter-spacing: 2px;
+}
+.produk-detail .desc { color: var(--text-dim); font-size: 0.88rem; margin-bottom: 14px; }
+.produk-detail .harga-big {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid var(--neon-yellow);
+  border-radius: 10px;
+  padding: 8px 24px;
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  font-size: 1.6rem; font-weight: 900;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 10px var(--neon-yellow);
+  box-shadow: 0 0 20px rgba(255, 230, 0, 0.5);
+  letter-spacing: 2px;
+}
+.info-box {
+  background: rgba(0, 20, 10, 0.5);
+  border: 2px solid var(--neon-green);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.3), inset 0 0 15px rgba(57, 255, 20, 0.05);
+  padding: 16px 18px;
+  margin-bottom: 22px;
+}
+.info-box p {
+  font-size: 0.88rem;
+  color: var(--neon-green);
+  text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+  line-height: 1.7;
+  margin-bottom: 4px;
+}
+.info-box p:last-child { margin-bottom: 0; }
+.info-box strong { color: var(--neon-yellow); text-shadow: 0 0 6px var(--neon-yellow); }
+.form-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--neon-pink);
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(255, 0, 229, 0.5), inset 0 0 20px rgba(255, 0, 229, 0.05);
+  padding: 26px;
+  margin-bottom: 22px;
+}
+.form-panel h3 {
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-size: 1.5rem; font-weight: 700;
+  margin-bottom: 18px;
+  color: var(--neon-pink);
+  text-shadow: 0 0 10px var(--neon-pink);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 0.82rem; font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-family: inherit;
+  font-weight: 600;
+  transition: all 0.3s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 15px var(--neon-pink), inset 0 0 15px rgba(255, 0, 229, 0.15);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--text-dim); }
+.form-group textarea { resize: vertical; min-height: 80px; }
+.form-group .error {
+  display: block;
+  color: var(--neon-red);
+  font-size: 0.75rem; font-weight: 700;
+  margin-top: 5px; min-height: 14px;
+  text-shadow: 0 0 5px var(--neon-red);
+}
+.form-group input.invalid,
+.form-group textarea.invalid {
+  border-color: var(--neon-red);
+  box-shadow: 0 0 15px var(--neon-red);
+}
+.total-box {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px dashed var(--neon-green);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+.total-box .row {
+  display: flex; justify-content: space-between;
+  padding: 5px 0; font-size: 0.9rem;
+  color: var(--text-dim);
+}
+.total-box .row strong { color: var(--text); font-weight: 700; }
+.total-box .row.big {
+  border-top: 2px dashed var(--neon-green);
+  margin-top: 8px; padding-top: 12px;
+  font-size: 1rem; font-weight: 900;
+}
+.total-box .row.big span { color: var(--text); font-weight: 900; font-family: 'Pirata One', serif; letter-spacing: 1px; }
+.total-box .row.big strong {
+  color: var(--neon-green);
+  text-shadow: 0 0 10px var(--neon-green);
+  font-size: 1.4rem;
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  letter-spacing: 1px;
+}
+.btn-wa {
+  width: 100%; padding: 16px;
+  background: transparent;
+  border: 2px solid var(--neon-green);
+  border-radius: 12px;
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-weight: 700; font-size: 1.3rem;
+  color: var(--neon-green);
+  text-shadow: 0 0 10px var(--neon-green);
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.5), inset 0 0 15px rgba(57, 255, 20, 0.1);
+  transition: all 0.3s;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; cursor: pointer;
+  animation: neonPulseGreen 2s infinite alternate;
+}
+@keyframes neonPulseGreen {
+  0% { box-shadow: 0 0 20px rgba(57, 255, 20, 0.5), inset 0 0 15px rgba(57, 255, 20, 0.1); }
+  100% { box-shadow: 0 0 35px rgba(57, 255, 20, 0.8), 0 0 60px rgba(57, 255, 20, 0.4), inset 0 0 25px rgba(57, 255, 20, 0.2); }
+}
+.btn-wa:hover {
+  background: var(--neon-green); color: #000;
+  text-shadow: none;
+  box-shadow: 0 0 40px var(--neon-green), 0 0 80px var(--neon-green);
+  transform: scale(1.02);
+}
+.btn-back {
+  display: block; width: 100%;
+  padding: 12px; background: transparent;
+  border: 2px solid var(--neon-cyan);
+  border-radius: 10px;
+  font-weight: 700; font-size: 1.1rem;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 6px var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 255, 247, 0.4);
+  transition: all 0.3s;
+  text-align: center; margin-top: 10px;
+  font-family: 'Pirata One', 'UnifrakturCook', serif;
+  letter-spacing: 2px; cursor: pointer;
+}
+.btn-back:hover {
+  background: var(--neon-cyan); color: #000;
+  text-shadow: none;
+  box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+}
+.success-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--neon-green);
+  border-radius: 18px;
+  box-shadow: 0 0 40px rgba(57, 255, 20, 0.5), inset 0 0 30px rgba(57, 255, 20, 0.05);
+  padding: 40px 28px;
+  text-align: center;
+}
+.success-card .check-icon {
+  width: 100px; height: 100px;
+  margin: 0 auto 20px;
+  background: rgba(0, 20, 10, 0.6);
+  border: 3px solid var(--neon-green);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+  color: var(--neon-green);
+  text-shadow: 0 0 20px var(--neon-green);
+  box-shadow: 0 0 30px var(--neon-green), inset 0 0 25px rgba(57, 255, 20, 0.3);
+  animation: popIn 0.6s ease;
+}
+@keyframes popIn {
+  0% { transform: scale(0) rotate(-180deg); }
+  70% { transform: scale(1.1) rotate(10deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+.success-card h1 {
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-size: 2.2rem; font-weight: 900;
+  margin-bottom: 10px;
+  color: var(--neon-green);
+  text-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.success-card p {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.success-card .next-step {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px dashed var(--neon-cyan);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+.success-card .next-step p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.success-card .next-step p:last-child { margin-bottom: 0; }
+.success-card .next-step strong { color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan); }
+
+/* ===================== FOOTER ===================== */
+.footer {
+  background: rgba(0, 0, 0, 0.9);
+  color: var(--text-dim);
+  padding: 30px 24px;
+  text-align: center;
+  border-top: 2px solid var(--neon-cyan);
+  box-shadow: 0 -10px 30px rgba(0, 255, 247, 0.2);
+  font-size: 0.85rem;
+}
+.footer p:first-child {
+  font-family: 'UnifrakturCook', 'Pirata One', serif;
+  font-weight: 900;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan);
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+  font-size: 1.4rem;
+}
+.footer-sosmed {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+  border: 2px solid;
+}
+.footer-link.telegram {
+  color: var(--neon-blue);
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px rgba(0, 153, 255, 0.4);
+}
+.footer-link.telegram:hover {
+  background: var(--neon-blue);
+  color: #000;
+  box-shadow: 0 0 20px var(--neon-blue);
+}
+.footer-link.whatsapp {
+  color: var(--neon-green);
+  border-color: var(--neon-green);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+}
+.footer-link.whatsapp:hover {
+  background: var(--neon-green);
+  color: #000;
+  box-shadow: 0 0 20px var(--neon-green);
+}
+
+.wa-float {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  width: 64px; height: 64px;
+  background: #000;
+  border: 2px solid var(--neon-green);
+  border-radius: 50%;
+  box-shadow: 0 0 20px var(--neon-green), inset 0 0 15px rgba(57, 255, 20, 0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.7rem;
+  z-index: 200;
+  transition: all 0.3s;
+  animation: neonPulseGreen 2s infinite;
+}
+.wa-float:hover {
+  background: var(--neon-green);
+  transform: scale(1.15);
+  box-shadow: 0 0 40px var(--neon-green), 0 0 80px var(--neon-green);
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 600px) {
+  .header { padding: 10px 14px; }
+  .logo-badge { font-size: 1.1rem; padding: 5px 12px; letter-spacing: 1px; }
+  .header-sosmed { width: 34px; height: 34px; }
+  .header-sosmed svg { width: 18px; height: 18px; }
+  .hero { padding: 40px 16px; min-height: 80vh; }
+  .hero-title { font-size: 2.8rem; letter-spacing: 2px; }
+  .hero-subtitle { font-size: 0.95rem; padding: 8px 20px; letter-spacing: 2px; }
+  .section-title { font-size: 1.8rem; letter-spacing: 2px; }
+  .sosmed-section { padding: 30px 14px; }
+  .sosmed-title { font-size: 1.5rem; letter-spacing: 2px; }
+  .sosmed-card { padding: 18px; gap: 14px; }
+  .sosmed-icon { width: 52px; height: 52px; }
+  .sosmed-icon svg { width: 26px; height: 26px; }
+  .sosmed-info h4 { font-size: 1.1rem; }
+  .sosmed-info p { font-size: 0.78rem; }
+  .sosmed-info .username { font-size: 0.75rem; }
+  .benefit-banner { padding: 18px 16px; }
+  .benefit-header h3 { font-size: 1.4rem; letter-spacing: 2px; }
+  .benefit-list { grid-template-columns: 1fr; gap: 8px; }
+  .benefit-list li { font-size: 0.82rem; padding: 8px 10px; }
+  .benefit-footer { font-size: 1.4rem; letter-spacing: 2px; }
+  .order-page, .success-page { padding: 20px 14px 40px; }
+  .iklan-section { padding: 20px 14px; }
+  .iklan-slider { aspect-ratio: 16 / 9; }
+  .slider-arrow { width: 36px; height: 36px; font-size: 1.1rem; }
+  .slider-arrow.left { left: 8px; }
+  .slider-arrow.right { right: 8px; }
+  .slider-label { font-size: 0.85rem; padding: 4px 10px; top: 10px; left: 10px; }
+  .slider-dots { bottom: 10px; padding: 4px 10px; }
+  .dot { width: 10px; height: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="header">
+  <div class="header-left">
+    <button class="menu-btn" onclick="goHome()">☰</button>
+    <div class="logo-badge">
+      <span>⚡</span> ℙ𝕌𝕋ℤℤℙ𝔼𝔻𝕀𝔸
+    </div>
+  </div>
+  <div class="header-right">
+    <a href="https://t.me/PutzzPedia" target="_blank" class="header-sosmed telegram" title="Telegram @PutzzPedia">
+      <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+    </a>
+    <a href="https://wa.me/62881011760799" target="_blank" class="header-sosmed whatsapp" title="WhatsApp 0881011760799">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- ===================== HALAMAN 1: LANDING ===================== -->
+<div id="pageLanding">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-image"></div>
+    <div class="hero-overlay"></div>
+
+    <!-- KARAKTER VIDEO -->
+    <div class="hero-character">
+      <div class="character-glow"></div>
+      <div class="character-wrapper">
+        <video class="character-img" autoplay loop muted playsinline preload="auto">
+          <source src="anime.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="character-particles">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="character-shadow"></div>
+    </div>
+
+    <div class="hero-content">
+      <h1 class="hero-title">ℙ𝕌𝕋ℤℤℙ𝔼𝔻𝕀𝔸</h1>
+      <div class="hero-subtitle">⚡ 𝕍ℙ𝕊 & ℙ𝔸ℕ𝔼𝕃 ℙ𝕋𝔼ℝ𝕆𝔻𝔸ℂ𝕋𝕐𝕃 ⚡</div>
+      <p class="hero-desc">
+        VPS Digital Ocean High Quality — Free Install Panel, Free Theme, Free Egg Bot, Full Akses. Harga mulai Rp20.000 saja.
+      </p>
+      <div class="hero-btns">
+        <a href="#produk-vps" class="btn-hero">🖥️ Lihat VPS</a>
+        <a href="#produk-panel" class="btn-hero pink">💀 Lihat Panel</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION SOSMED -->
+  <section class="sosmed-section">
+    <h2 class="sosmed-title">⚡ 𝕂𝕆ℕ𝕋𝔸𝕂 & 𝕊𝕆𝕊𝕄𝔼𝔻 ⚡</h2>
+    <div class="sosmed-grid">
+
+      <a href="https://t.me/PutzzPedia" target="_blank" class="sosmed-card telegram">
+        <div class="sosmed-icon">
+          <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+        </div>
+        <div class="sosmed-info">
+          <h4>𝕋𝔼𝕃𝔼𝔾ℝ𝔸𝕄</h4>
+          <p>Channel & Chat Admin</p>
+          <span class="username">@PutzzPedia</span>
+        </div>
+        <div class="sosmed-arrow">→</div>
+      </a>
+
+      <a href="https://wa.me/62881011760799" target="_blank" class="sosmed-card whatsapp">
+        <div class="sosmed-icon">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <div class="sosmed-info">
+          <h4>𝕎ℍ𝔸𝕋𝕊𝔸ℙℙ</h4>
+          <p>Order & Konsultasi</p>
+          <span class="username">0881011760799</span>
+        </div>
+        <div class="sosmed-arrow">→</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- IKLAN SLIDESHOW -->
+  <section class="iklan-section">
+    <div class="iklan-slider">
+      <div class="slide active">
+        <img src="iklan1.jpg" alt="Toko Panel Putzz Pedia Auto Order" />
+      </div>
+      <div class="slide">
+        <img src="iklan2.jpg" alt="Anime Astronomy" />
+      </div>
+
+      <div class="slider-dots">
+        <button class="dot active" onclick="goToSlide(0)"></button>
+        <button class="dot" onclick="goToSlide(1)"></button>
+      </div>
+
+      <button class="slider-arrow left" onclick="prevSlide()">‹</button>
+      <button class="slider-arrow right" onclick="nextSlide()">›</button>
+
+      <div class="slider-label">⚡ 𝕀𝕂𝕃𝔸ℕ</div>
+    </div>
+  </section>
+
+  <!-- PROMO -->
+  <section class="promo-section">
+    <div class="promo-banner">
+      <p>💰 Punya saldo, order produk jadi lebih cepat tanpa scan QRIS berulang.</p>
+      <a href="#" class="btn-deposit">Masuk untuk Deposit</a>
+    </div>
+  </section>
+
+  <!-- SEARCH -->
+  <section class="search-section">
+    <div class="search-bar">
+      <span class="icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Cari produk VPS atau Panel..." />
+      <button>Cari</button>
+    </div>
+  </section>
+
+  <!-- SECTION VPS + BANNER BENEFIT -->
+  <section class="produk-section" id="produk-vps">
+    <h2 class="section-title">⛈️ 𝕍ℙ𝕊 𝔻𝕀𝔾𝕀𝕋𝔸𝕃 𝕆ℂ𝔼𝔸ℕ</h2>
+
+    <div class="benefit-banner">
+      <div class="benefit-header">
+        <span class="icon-neon">◆</span>
+        <h3>𝔹𝔼ℕ𝔼𝔽𝕀𝕋 ℙ𝔼𝕄𝔹𝔼𝕃𝕀𝔸ℕ</h3>
+        <span class="icon-neon">◆</span>
+      </div>
+      <ul class="benefit-list">
+        <li><span class="arrow">↠</span> High Quality, Awet Dan Stabil</li>
+        <li><span class="arrow">↠</span> Free Install Panel Pterodactyl</li>
+        <li><span class="arrow">↠</span> Free Install Thema <small>(Ram 8 - 124)</small></li>
+        <li><span class="arrow">↠</span> Free Request Domain Panel</li>
+        <li><span class="arrow">↠</span> Free Request Region, Os, Versi</li>
+        <li><span class="arrow">↠</span> Free Egg Bot Samp</li>
+        <li><span class="arrow">↠</span> Free Egg Bot WhatsApp Terbaru</li>
+        <li><span class="arrow">↠</span> Full Akses Vps</li>
+        <li><span class="arrow">↠</span> Free Sc Cpanel Wa Dan Tele</li>
+        <li><span class="arrow">↠</span> Masa Aktif Vps 30 Hari Full</li>
+        <li><span class="arrow">↠</span> Garansi 10 Hari <small>(1x Replace)</small></li>
+      </ul>
+      <div class="benefit-footer">⚡ 𝔹𝕆ℕ𝕌𝕊 𝕄𝔼𝕃𝕀𝕄ℙ𝔸ℍ ⚡</div>
+    </div>
+
+    <div class="produk-grid" id="produkGridVPS"></div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="section-divider"></div>
+
+  <!-- SECTION PANEL -->
+  <section class="produk-section" id="produk-panel">
+    <h2 class="section-title">💀 ℙ𝔸ℕ𝔼𝕃 ℙ𝕋𝔼ℝ𝕆𝔻𝔸ℂ𝕋𝕐𝕃</h2>
+    <div class="produk-grid" id="produkGridPanel"></div>
+  </section>
+</div>
+
+<!-- ===================== HALAMAN 2: FORM ORDER ===================== -->
+<div class="order-page" id="pageOrder">
+  <h1 class="page-title">𝔽𝕆ℝ𝕄 𝕆ℝ𝔻𝔼ℝ</h1>
+  <div id="orderContent"></div>
+</div>
+
+<!-- ===================== HALAMAN 3: SUKSES ===================== -->
+<div class="success-page" id="pageSuccess">
+  <div class="success-card">
+    <div class="check-icon">✓</div>
+    <h1>ℙ𝔼𝕊𝔸ℕ𝔸ℕ 𝕋𝔼ℝ𝕂𝕀ℝ𝕀𝕄!</h1>
+    <p>Pesanan kamu sudah dikirim ke WhatsApp admin.<br>Silakan lanjutkan pembayaran di chat WhatsApp.</p>
+    <div class="next-step">
+      <p>📱 <strong>Langkah selanjutnya:</strong></p>
+      <p>1️⃣ Cek WhatsApp kamu</p>
+      <p>2️⃣ Admin akan balas dengan instruksi pembayaran</p>
+      <p>3️⃣ Transfer sesuai total pesanan</p>
+      <p>4️⃣ Kirim bukti transfer ke admin</p>
+    </div>
+    <a href="https://wa.me/62881011760799" target="_blank" class="btn-wa">💬 𝔹𝕌𝕂𝔸 𝕎ℍ𝔸𝕋𝕊𝔸ℙℙ</a>
+    <a href="javascript:void(0)" class="btn-back" onclick="goHome()">🏠 𝕂𝔼𝕄𝔹𝔸𝕃𝕀 𝕂𝔼 𝔹𝔼ℝ𝔸ℕ𝔻𝔸</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>⚡ 𝕋𝕆𝕂𝕆 ℙ𝕌𝕋ℤℤℙ𝔼𝔻𝕀𝔸 ⚡</p>
+  <p>&copy; 2026 Toko PutzzPedia. VPS & Panel Pterodactyl Terpercaya.</p>
+  <div class="footer-sosmed">
+    <a href="https://t.me/PutzzPedia" target="_blank" class="footer-link telegram">
+      📢 Telegram: @PutzzPedia
+    </a>
+    <a href="https://wa.me/62881011760799" target="_blank" class="footer-link whatsapp">
+      💬 WhatsApp: 0881011760799
+    </a>
+  </div>
+</footer>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/62881011760799" target="_blank" class="wa-float" title="Hubungi kami">💬</a>
+
+<script>
+/* =========================================================
+   KONFIGURASI
+   ========================================================= */
+const WA_NUMBER = '62881011760799';
+const TG_USERNAME = 'PutzzPedia';
+
+/* =========================================================
+   DATA PRODUK
+   ========================================================= */
+const PRODUK_VPS = [
+  { id: 'vps-1c1',   nama: 'VPS 1 RAM / 1 CORE',   harga: 20000,  icon: '⛈️', desc: 'Digital Ocean • High Quality' },
+  { id: 'vps-1c2',   nama: 'VPS 2 RAM / 1 CORE',   harga: 25000,  icon: '⛈️', desc: 'Digital Ocean • High Quality' },
+  { id: 'vps-2c2',   nama: 'VPS 2 RAM / 2 CORE',   harga: 30000,  icon: '⛈️', desc: 'Digital Ocean • High Quality' },
+  { id: 'vps-2c4',   nama: 'VPS 4 RAM / 2 CORE',   harga: 40000,  icon: '⛈️', desc: 'Digital Ocean • High Quality' },
+  { id: 'vps-4c8',   nama: 'VPS 8 RAM / 4 CORE',   harga: 50000,  icon: '⛈️', desc: 'Digital Ocean • High Quality' },
+  { id: 'vps-4c16',  nama: 'VPS 16 RAM / 4 CORE',  harga: 60000,  icon: '⛈️', desc: 'Digital Ocean • High Quality' },
+  { id: 'vps-8c16',  nama: 'VPS 16 RAM / 8 CORE',  harga: 80000,  icon: '⛈️', desc: 'Digital Ocean • High Quality' },
+  { id: 'vps-8c32',  nama: 'VPS 32 RAM / 8 CORE',  harga: 100000, icon: '⛈️', desc: 'Digital Ocean • High Quality' },
+  { id: 'vps-8c128', nama: 'VPS 128 RAM / 8 CORE', harga: 120000, icon: '⛈️', desc: 'Digital Ocean • High Quality' },
+];
+
+const PRODUK_PANEL = [
+  { id: 'p1gb',  nama: '1GB',         harga: 500,  icon: '🌐', desc: 'Paket panel 1GB' },
+  { id: 'p2gb',  nama: '2GB',         harga: 1000, icon: '🌐', desc: 'Paket panel 2GB' },
+  { id: 'p3gb',  nama: '3GB',         harga: 1500, icon: '🌐', desc: 'Paket panel 3GB' },
+  { id: 'p4gb',  nama: '4GB',         harga: 2000, icon: '🌐', desc: 'Paket panel 4GB' },
+  { id: 'p5gb',  nama: '5GB',         harga: 2500, icon: '🌐', desc: 'Paket panel 5GB' },
+  { id: 'p6gb',  nama: '6GB',         harga: 3000, icon: '🌐', desc: 'Paket panel 6GB' },
+  { id: 'p7gb',  nama: '7GB',         harga: 3500, icon: '🌐', desc: 'Paket panel 7GB' },
+  { id: 'p8gb',  nama: '8GB',         harga: 4000, icon: '🌐', desc: 'Paket panel 8GB' },
+  { id: 'p9gb',  nama: '9GB',         harga: 4500, icon: '🌐', desc: 'Paket panel 9GB' },
+  { id: 'p10gb', nama: '10GB',        harga: 5000, icon: '🌐', desc: 'Paket panel 10GB' },
+  { id: 'unli',  nama: 'UNLI',        harga: 5500, icon: '♾️', desc: 'Unlimited panel' },
+  { id: 'panel', nama: 'ADMIN PANEL', harga: 7000, icon: '⚙️', desc: 'Akses admin panel' },
+];
+
+const SEMUA_PRODUK = [...PRODUK_VPS, ...PRODUK_PANEL];
+let selectedProduk = null;
+
+function formatHarga(n) { return 'Rp' + n.toLocaleString('id-ID'); }
+
+/* =========================================================
+   NAVIGASI
+   ========================================================= */
+function showPage(pageId) {
+  document.getElementById('pageLanding').style.display = 'none';
+  document.getElementById('pageOrder').classList.remove('active');
+  document.getElementById('pageSuccess').classList.remove('active');
+
+  if (pageId === 'landing') document.getElementById('pageLanding').style.display = 'block';
+  else if (pageId === 'order') document.getElementById('pageOrder').classList.add('active');
+  else if (pageId === 'success') document.getElementById('pageSuccess').classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goHome() { showPage('landing'); }
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+function renderGrid(gridId, list, badgeText, badgeClass) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  if (!list.length) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#7a8ba0;padding:30px;font-style:italic">Produk tidak ditemukan...</p>';
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="produk-card">
+      <div class="icon-box">${p.icon}</div>
+      <h4>${p.nama}</h4>
+      <p>${p.desc}</p>
+      <span class="harga">${formatHarga(p.harga)}</span>
+      ${badgeText ? `<span class="${badgeClass}">${badgeText}</span>` : ''}
+      <button class="btn-order" onclick="pilihProduk('${p.id}')">⚡ 𝕆ℝ𝔻𝔼ℝ 𝕊𝔼𝕂𝔸ℝ𝔸ℕ𝔾</button>
+    </div>
+  `).join('');
+}
+
+function renderProduk() {
+  renderGrid('produkGridVPS', PRODUK_VPS, '🧠 𝔹𝕀𝕊𝔸 ℕ𝔼𝔾𝕆', 'badge-nego');
+  renderGrid('produkGridPanel', PRODUK_PANEL, '🔥 ℍ𝕆𝕋 𝕀𝕋𝔼𝕄', 'badge-hot');
+}
+
+function pilihProduk(id) {
+  const p = SEMUA_PRODUK.find(x => x.id === id);
+  if (!p) return;
+  selectedProduk = p;
+  renderOrderForm(p);
+  showPage('order');
+}
+
+/* =========================================================
+   FORM ORDER
+   ========================================================= */
+function renderOrderForm(p) {
+  document.getElementById('orderContent').innerHTML = `
+    <div class="produk-detail">
+      <div class="icon-big">${p.icon}</div>
+      <h2>${p.nama}</h2>
+      <p class="desc">${p.desc}</p>
+      <span class="harga-big">${formatHarga(p.harga)}</span>
+    </div>
+
+    <div class="info-box">
+      <p>⚡ <strong>Cara order:</strong></p>
+      <p>1️⃣ Isi form di bawah dengan lengkap</p>
+      <p>2️⃣ Klik <strong>Lanjut ke Pembayaran</strong></p>
+      <p>3️⃣ WhatsApp admin otomatis terbuka</p>
+      <p>4️⃣ Lanjutkan pembayaran di chat WhatsApp</p>
+    </div>
+
+    <div class="form-panel">
+      <h3>📝 𝔻𝔸𝕋𝔸 ℙ𝔼𝕄𝔼𝕊𝔸ℕ</h3>
+      <form id="orderForm" novalidate>
+        <div class="form-group">
+          <label for="nama">Nama Lengkap</label>
+          <input type="text" id="nama" placeholder="Contoh: John Doe" required />
+          <small class="error" data-for="nama"></small>
+        </div>
+        <div class="form-group">
+          <label for="wa">Nomor WhatsApp Kamu</label>
+          <input type="tel" id="wa" placeholder="Contoh: 08123456789" required />
+          <small class="error" data-for="wa"></small>
+        </div>
+        <div class="form-group">
+          <label for="email">Email (opsional)</label>
+          <input type="email" id="email" placeholder="kamu@email.com" />
+          <small class="error" data-for="email"></small>
+        </div>
+        <div class="form-group">
+          <label for="jumlah">Jumlah Order</label>
+          <input type="number" id="jumlah" value="1" min="1" max="100" required />
+          <small class="error" data-for="jumlah"></small>
+        </div>
+        <div class="form-group">
+          <label for="catatan">Catatan (opsional)</label>
+          <textarea id="catatan" placeholder="Contoh: minta bonus, butuh cepat, dll"></textarea>
+        </div>
+        <div class="total-box">
+          <div class="row"><span>Harga Satuan</span><strong>${formatHarga(p.harga)}</strong></div>
+          <div class="row"><span>Jumlah</span><strong id="rJumlah">1</strong></div>
+          <div class="row big"><span>Total Bayar</span><strong id="rTotal">${formatHarga(p.harga)}</strong></div>
+        </div>
+        <button type="submit" class="btn-wa">⚡ 𝕃𝔸ℕ𝕁𝕌𝕋 𝕂𝔼 ℙ𝔼𝕄𝔹𝔸𝕐𝔸ℝ𝔸ℕ ⚡</button>
+        <a href="javascript:void(0)" class="btn-back" onclick="goHome()">← 𝕂𝔼𝕄𝔹𝔸𝕃𝕀</a>
+      </form>
+    </div>
+  `;
+
+  document.getElementById('orderForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (validasi()) bukaWhatsApp(p);
+  });
+  document.getElementById('jumlah').addEventListener('input', () => {
+    const jumlah = parseInt(document.getElementById('jumlah').value) || 0;
+    document.getElementById('rJumlah').textContent = jumlah;
+    document.getElementById('rTotal').textContent = formatHarga(p.harga * jumlah);
+  });
+}
+
+function setError(id, msg) {
+  const input = document.getElementById(id);
+  const err = document.querySelector(`.error[data-for="${id}"]`);
+  if (input) input.classList.toggle('invalid', !!msg);
+  if (err) err.textContent = msg || '';
+  return !msg;
+}
+
+function validasi() {
+  let ok = true;
+  const nama = document.getElementById('nama').value.trim();
+  ok = setError('nama', nama.length < 3 ? 'Nama minimal 3 karakter' : '') && ok;
+  const wa = document.getElementById('wa').value.trim();
+  ok = setError('wa', !/^0\d{9,13}$/.test(wa) ? 'Format: 08xxxxxxxxxx' : '') && ok;
+  const email = document.getElementById('email').value.trim();
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    ok = setError('email', 'Email tidak valid') && ok;
+  } else { setError('email', ''); }
+  const jumlah = parseInt(document.getElementById('jumlah').value);
+  ok = setError('jumlah', (!jumlah || jumlah < 1 || jumlah > 100) ? 'Jumlah 1-100' : '') && ok;
+  return ok;
+}
+
+function bukaWhatsApp(p) {
+  const nama = document.getElementById('nama').value.trim();
+  const wa = document.getElementById('wa').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const jumlah = parseInt(document.getElementById('jumlah').value);
+  const catatan = document.getElementById('catatan').value.trim();
+  const total = p.harga * jumlah;
+
+  let pesan =
+    `Halo *Toko PutzzPedia*! ⚡\n\n` +
+    `Saya mau order:\n\n` +
+    `📦 *Produk:* ${p.nama}\n` +
+    `📝 *Deskripsi:* ${p.desc}\n` +
+    `💰 *Harga Satuan:* ${formatHarga(p.harga)}\n` +
+    `🔢 *Jumlah:* ${jumlah}\n` +
+    `💵 *Total:* ${formatHarga(total)}\n\n` +
+    `━━━━━━━━━━━━━━━\n` +
+    `👤 *Nama:* ${nama}\n` +
+    `📱 *WA:* ${wa}\n`;
+
+  if (email) pesan += `📧 *Email:* ${email}\n`;
+  if (catatan) pesan += `📝 *Catatan:* ${catatan}\n`;
+  pesan += `\nMohon info cara pembayarannya. Terima kasih! 🙏`;
+
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pesan)}`, '_blank');
+  setTimeout(() => showPage('success'), 800);
+}
+
+/* =========================================================
+   IKLAN SLIDESHOW
+   ========================================================= */
+let currentSlide = 0;
+const slides = document.querySelectorAll('.iklan-slider .slide');
+const dots = document.querySelectorAll('.iklan-slider .dot');
+let slideInterval;
+
+function goToSlide(n) {
+  slides.forEach((s, i) => s.classList.toggle('active', i === n));
+  dots.forEach((d, i) => d.classList.toggle('active', i === n));
+  currentSlide = n;
+  resetAutoSlide();
+}
+function nextSlide() { goToSlide((currentSlide + 1) % slides.length); }
+function prevSlide() { goToSlide((currentSlide - 1 + slides.length) % slides.length); }
+function startAutoSlide() { slideInterval = setInterval(nextSlide, 4000); }
+function resetAutoSlide() { clearInterval(slideInterval); startAutoSlide(); }
+
+if (slides.length > 0) startAutoSlide();
+
+const sliderEl = document.querySelector('.iklan-slider');
+if (sliderEl) {
+  sliderEl.addEventListener('mouseenter', () => clearInterval(slideInterval));
+  sliderEl.addEventListener('mouseleave', startAutoSlide);
+}
+
+/* SEARCH */
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  const q = e.target.value.toLowerCase();
+  const filterFn = p => p.nama.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
+  renderGrid('produkGridVPS', PRODUK_VPS.filter(filterFn), '🧠 𝔹𝕀𝕊𝔸 ℕ𝔼𝔾𝕆', 'badge-nego');
+  renderGrid('produkGridPanel', PRODUK_PANEL.filter(filterFn), '🔥 ℍ𝕆𝕋 𝕀𝕋𝔼𝕄', 'badge-hot');
+});
+
+/* INIT */
+document.addEventListener('DOMContentLoaded', () => {
+  renderProduk();
+  showPage('landing');
+});
+</script>
+
+</body>
+</html>
